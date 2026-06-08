@@ -1,0 +1,14 @@
+{
+    "name": "bookmark-manager-root",
+    "version": "1.0.0",
+    "description": "Personal Bookmark Manager",
+    "scripts": {
+        "start": "concurrently \"npm run server\" \"npm run client\"",
+        "server": "npm run start --prefix server",
+        "client": "npm run dev --prefix client",
+        "install:all": "npm install --prefix client && npm install --prefix server"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}

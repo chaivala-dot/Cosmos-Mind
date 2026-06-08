@@ -1,0 +1,1172 @@
+[
+  {
+    "name": "ChatGPT",
+    "url": "https://chat.openai.com",
+    "tags": "chatbot,text-generation,coding,writing"
+  },
+  {
+    "name": "Claude",
+    "url": "https://claude.ai",
+    "tags": "chatbot,text-generation,coding,writing,analysis"
+  },
+  {
+    "name": "Gemini",
+    "url": "https://gemini.google.com",
+    "tags": "chatbot,text-generation,coding,search"
+  },
+  {
+    "name": "Perplexity",
+    "url": "https://perplexity.ai",
+    "tags": "chatbot,search,research"
+  },
+  {
+    "name": "Microsoft Copilot",
+    "url": "https://copilot.microsoft.com",
+    "tags": "chatbot,text-generation,search,productivity"
+  },
+  {
+    "name": "Grok",
+    "url": "https://x.ai",
+    "tags": "chatbot,text-generation"
+  },
+  {
+    "name": "Pi",
+    "url": "https://pi.ai",
+    "tags": "chatbot,personal-assistant"
+  },
+  {
+    "name": "Poe",
+    "url": "https://poe.com",
+    "tags": "chatbot,aggregator,multi-model"
+  },
+  {
+    "name": "Character.AI",
+    "url": "https://character.ai",
+    "tags": "chatbot,roleplay,entertainment"
+  },
+  {
+    "name": "Midjourney",
+    "url": "https://midjourney.com",
+    "tags": "image-generation,art,creative"
+  },
+  {
+    "name": "DALL-E",
+    "url": "https://labs.openai.com",
+    "tags": "image-generation,art,creative"
+  },
+  {
+    "name": "Stable Diffusion",
+    "url": "https://stability.ai",
+    "tags": "image-generation,art,creative,open-source"
+  },
+  {
+    "name": "Leonardo AI",
+    "url": "https://leonardo.ai",
+    "tags": "image-generation,art,creative,game-assets"
+  },
+  {
+    "name": "Ideogram",
+    "url": "https://ideogram.ai",
+    "tags": "image-generation,art,creative,text-in-images"
+  },
+  {
+    "name": "Adobe Firefly",
+    "url": "https://firefly.adobe.com",
+    "tags": "image-generation,art,creative,design"
+  },
+  {
+    "name": "Canva AI",
+    "url": "https://canva.com/ai-image-generator",
+    "tags": "image-generation,design,marketing"
+  },
+  {
+    "name": "Bing Image Creator",
+    "url": "https://bing.com/create",
+    "tags": "image-generation,art,creative"
+  },
+  {
+    "name": "Runway",
+    "url": "https://runway.ml",
+    "tags": "video-generation,video-editing,creative"
+  },
+  {
+    "name": "Pika",
+    "url": "https://pika.art",
+    "tags": "video-generation,creative"
+  },
+  {
+    "name": "HeyGen",
+    "url": "https://heygen.com",
+    "tags": "video-generation,avatar,presentation"
+  },
+  {
+    "name": "Synthesia",
+    "url": "https://synthesia.io",
+    "tags": "video-generation,avatar,presentation,marketing"
+  },
+  {
+    "name": "Descript",
+    "url": "https://descript.com",
+    "tags": "video-editing,audio-editing,transcription"
+  },
+  {
+    "name": "GitHub Copilot",
+    "url": "https://github.com/features/copilot",
+    "tags": "coding,developer-tools,autocomplete"
+  },
+  {
+    "name": "Cursor",
+    "url": "https://cursor.com",
+    "tags": "coding,developer-tools,IDE"
+  },
+  {
+    "name": "Replit",
+    "url": "https://replit.com",
+    "tags": "coding,developer-tools,cloud-IDE"
+  },
+  {
+    "name": "v0",
+    "url": "https://v0.dev",
+    "tags": "coding,ui-generation,frontend,developer-tools"
+  },
+  {
+    "name": "Bolt.new",
+    "url": "https://bolt.new",
+    "tags": "coding,full-stack,developer-tools"
+  },
+  {
+    "name": "Lovable",
+    "url": "https://lovable.dev",
+    "tags": "coding,app-builder,no-code"
+  },
+  {
+    "name": "Claude Code",
+    "url": "https://docs.anthropic.com/en/docs/build-with-claude/claude-code",
+    "tags": "coding,developer-tools,terminal"
+  },
+  {
+    "name": "Tabnine",
+    "url": "https://tabnine.com",
+    "tags": "coding,developer-tools,autocomplete"
+  },
+  {
+    "name": "Codeium",
+    "url": "https://codeium.com",
+    "tags": "coding,developer-tools,autocomplete,free"
+  },
+  {
+    "name": "Notion AI",
+    "url": "https://notion.so",
+    "tags": "productivity,writing,notes,workspace"
+  },
+  {
+    "name": "Jasper",
+    "url": "https://jasper.ai",
+    "tags": "writing,marketing,content-creation"
+  },
+  {
+    "name": "Copy.ai",
+    "url": "https://copy.ai",
+    "tags": "writing,marketing,content-creation"
+  },
+  {
+    "name": "Writesonic",
+    "url": "https://writesonic.com",
+    "tags": "writing,marketing,content-creation"
+  },
+  {
+    "name": "Grammarly",
+    "url": "https://grammarly.com",
+    "tags": "writing,grammar,editing"
+  },
+  {
+    "name": "QuillBot",
+    "url": "https://quillbot.com",
+    "tags": "writing,paraphrasing,grammar"
+  },
+  {
+    "name": "ElevenLabs",
+    "url": "https://elevenlabs.io",
+    "tags": "audio,voice-generation,text-to-speech"
+  },
+  {
+    "name": "Murf AI",
+    "url": "https://murf.ai",
+    "tags": "audio,voice-generation,text-to-speech"
+  },
+  {
+    "name": "Suno",
+    "url": "https://suno.ai",
+    "tags": "audio,music-generation,creative"
+  },
+  {
+    "name": "Udio",
+    "url": "https://udio.com",
+    "tags": "audio,music-generation,creative"
+  },
+  {
+    "name": "Soundraw",
+    "url": "https://soundraw.io",
+    "tags": "audio,music-generation,creative"
+  },
+  {
+    "name": "ChatPDF",
+    "url": "https://chatpdf.com",
+    "tags": "document-analysis,pdf,research"
+  },
+  {
+    "name": "Humata",
+    "url": "https://humata.ai",
+    "tags": "document-analysis,pdf,research"
+  },
+  {
+    "name": "Mem",
+    "url": "https://mem.ai",
+    "tags": "notes,knowledge-management,productivity"
+  },
+  {
+    "name": "Reflect",
+    "url": "https://reflect.app",
+    "tags": "notes,knowledge-management,productivity"
+  },
+  {
+    "name": "Otter.ai",
+    "url": "https://otter.ai",
+    "tags": "transcription,meeting,productivity"
+  },
+  {
+    "name": "Fireflies.ai",
+    "url": "https://fireflies.ai",
+    "tags": "transcription,meeting,productivity"
+  },
+  {
+    "name": "Sembly AI",
+    "url": "https://sembly.ai",
+    "tags": "transcription,meeting,productivity"
+  },
+  {
+    "name": "Gamma",
+    "url": "https://gamma.app",
+    "tags": "presentation,slides,productivity"
+  },
+  {
+    "name": "Beautiful.ai",
+    "url": "https://beautiful.ai",
+    "tags": "presentation,slides,design"
+  },
+  {
+    "name": "Tome",
+    "url": "https://tome.app",
+    "tags": "presentation,slides,storytelling"
+  },
+  {
+    "name": "Remove.bg",
+    "url": "https://remove.bg",
+    "tags": "image-editing,background-removal,design"
+  },
+  {
+    "name": "Cleanup.pictures",
+    "url": "https://cleanup.pictures",
+    "tags": "image-editing,object-removal,design"
+  },
+  {
+    "name": "Upscale.media",
+    "url": "https://upscale.media",
+    "tags": "image-editing,upscaling,enhancement"
+  },
+  {
+    "name": "Lensa",
+    "url": "https://prisma-ai.com/lensa",
+    "tags": "image-editing,portrait,avatar"
+  },
+  {
+    "name": "Framer AI",
+    "url": "https://framer.com",
+    "tags": "web-design,website-builder,no-code"
+  },
+  {
+    "name": "Dora AI",
+    "url": "https://dora.run",
+    "tags": "web-design,website-builder,no-code,3d"
+  },
+  {
+    "name": "10Web",
+    "url": "https://10web.io",
+    "tags": "web-design,website-builder,wordpress"
+  },
+  {
+    "name": "Mixo",
+    "url": "https://mixo.io",
+    "tags": "web-design,website-builder,landing-page"
+  },
+  {
+    "name": "Looka",
+    "url": "https://looka.com",
+    "tags": "design,logo,branding"
+  },
+  {
+    "name": "Brandmark",
+    "url": "https://brandmark.io",
+    "tags": "design,logo,branding"
+  },
+  {
+    "name": "Khroma",
+    "url": "https://khroma.co",
+    "tags": "design,color,palette"
+  },
+  {
+    "name": "Runway Research",
+    "url": "https://research.runwayml.com",
+    "tags": "research,ai-models,creative"
+  },
+  {
+    "name": "Hugging Face",
+    "url": "https://huggingface.co",
+    "tags": "ai-models,open-source,developer-tools,ml"
+  },
+  {
+    "name": "Replicate",
+    "url": "https://replicate.com",
+    "tags": "ai-models,api,developer-tools,ml"
+  },
+  {
+    "name": "Together AI",
+    "url": "https://together.ai",
+    "tags": "ai-models,api,developer-tools,ml"
+  },
+  {
+    "name": "Civitai",
+    "url": "https://civitai.com",
+    "tags": "ai-models,stable-diffusion,community,image-generation"
+  },
+  {
+    "name": "Bardeen",
+    "url": "https://bardeen.ai",
+    "tags": "automation,productivity,workflow"
+  },
+  {
+    "name": "Make (Integromat)",
+    "url": "https://make.com",
+    "tags": "automation,workflow,integration"
+  },
+  {
+    "name": "Zapier AI",
+    "url": "https://zapier.com",
+    "tags": "automation,workflow,integration"
+  },
+  {
+    "name": "Browse AI",
+    "url": "https://browse.ai",
+    "tags": "automation,web-scraping,data-extraction"
+  },
+  {
+    "name": "Browse.ai",
+    "url": "https://browse.ai",
+    "tags": "automation,web-scraping,data-extraction"
+  },
+  {
+    "name": "Pickaxe",
+    "url": "https://pickaxeproject.com",
+    "tags": "no-code,ai-builder,chatbot"
+  },
+  {
+    "name": "Voiceflow",
+    "url": "https://voiceflow.com",
+    "tags": "chatbot,no-code,conversation-design"
+  },
+  {
+    "name": "Landbot",
+    "url": "https://landbot.io",
+    "tags": "chatbot,no-code,customer-service"
+  },
+  {
+    "name": "Chatbase",
+    "url": "https://chatbase.co",
+    "tags": "chatbot,custom-gpt,embedding"
+  },
+  {
+    "name": "CustomGPT",
+    "url": "https://customgpt.ai",
+    "tags": "chatbot,custom-gpt,business"
+  },
+  {
+    "name": "Krea AI",
+    "url": "https://krea.ai",
+    "tags": "image-generation,real-time,creative"
+  },
+  {
+    "name": "Magnific AI",
+    "url": "https://magnific.ai",
+    "tags": "image-editing,upscaling,enhancement"
+  },
+  {
+    "name": "Playground AI",
+    "url": "https://playgroundai.com",
+    "tags": "image-generation,art,creative"
+  },
+  {
+    "name": "NightCafe",
+    "url": "https://nightcafe.studio",
+    "tags": "image-generation,art,creative,community"
+  },
+  {
+    "name": "Artbreeder",
+    "url": "https://artbreeder.com",
+    "tags": "image-generation,art,creative,mixing"
+  },
+  {
+    "name": "Lexica",
+    "url": "https://lexica.art",
+    "tags": "image-search,stable-diffusion,prompts"
+  },
+  {
+    "name": "PromptHero",
+    "url": "https://prompthero.com",
+    "tags": "prompts,image-search,community"
+  },
+  {
+    "name": "OpenArt",
+    "url": "https://openart.ai",
+    "tags": "image-generation,prompts,community"
+  },
+  {
+    "name": "Phind",
+    "url": "https://phind.com",
+    "tags": "search,coding,developer-tools"
+  },
+  {
+    "name": "You.com",
+    "url": "https://you.com",
+    "tags": "search,chatbot,productivity"
+  },
+  {
+    "name": "Consensus",
+    "url": "https://consensus.app",
+    "tags": "research,academic,search"
+  },
+  {
+    "name": "Elicit",
+    "url": "https://elicit.com",
+    "tags": "research,academic,literature-review"
+  },
+  {
+    "name": "Scite",
+    "url": "https://scite.ai",
+    "tags": "research,academic,citations"
+  },
+  {
+    "name": "Scholarcy",
+    "url": "https://scholarcy.com",
+    "tags": "research,academic,summarization"
+  },
+  {
+    "name": "ResearchRabbit",
+    "url": "https://researchrabbit.ai",
+    "tags": "research,academic,discovery"
+  },
+  {
+    "name": "Luma AI",
+    "url": "https://lumalabs.ai",
+    "tags": "3d,video-generation,creative"
+  },
+  {
+    "name": "Spline AI",
+    "url": "https://spline.design",
+    "tags": "3d,design,web-design"
+  },
+  {
+    "name": "Meshy",
+    "url": "https://meshy.ai",
+    "tags": "3d,model-generation,creative"
+  },
+  {
+    "name": "Rodin",
+    "url": "https://hyperhuman.deemos.com/rodin",
+    "tags": "3d,model-generation,creative"
+  },
+  {
+    "name": "D-ID",
+    "url": "https://d-id.com",
+    "tags": "video-generation,avatar,talking-head"
+  },
+  {
+    "name": "Colossyan",
+    "url": "https://colossyan.com",
+    "tags": "video-generation,avatar,training"
+  },
+  {
+    "name": "Pictory",
+    "url": "https://pictory.ai",
+    "tags": "video-editing,marketing,content-creation"
+  },
+  {
+    "name": "InVideo",
+    "url": "https://invideo.io",
+    "tags": "video-editing,marketing,content-creation"
+  },
+  {
+    "name": "Fliki",
+    "url": "https://fliki.ai",
+    "tags": "video-generation,text-to-video,voice"
+  },
+  {
+    "name": "Steve.AI",
+    "url": "https://steve.ai",
+    "tags": "video-generation,animation,marketing"
+  },
+  {
+    "name": "Simplified",
+    "url": "https://simplified.com",
+    "tags": "design,marketing,content-creation,all-in-one"
+  },
+  {
+    "name": "Designs.ai",
+    "url": "https://designs.ai",
+    "tags": "design,logo,video,all-in-one"
+  },
+  {
+    "name": "Craiyon",
+    "url": "https://craiyon.com",
+    "tags": "image-generation,art,creative,free"
+  },
+  {
+    "name": "Wepik AI",
+    "url": "https://wepik.com/ai",
+    "tags": "image-generation,design,templates"
+  },
+  {
+    "name": "Hotpot AI",
+    "url": "https://hotpot.ai",
+    "tags": "image-generation,design,tools"
+  },
+  {
+    "name": "Fotor AI",
+    "url": "https://fotor.com",
+    "tags": "image-editing,design,photo-editor"
+  },
+  {
+    "name": "Pixlr AI",
+    "url": "https://pixlr.com",
+    "tags": "image-editing,design,photo-editor"
+  },
+  {
+    "name": "Let's Enhance",
+    "url": "https://letsenhance.io",
+    "tags": "image-editing,upscaling,enhancement"
+  },
+  {
+    "name": "Topaz Labs",
+    "url": "https://topazlabs.com",
+    "tags": "image-editing,video-editing,enhancement"
+  },
+  {
+    "name": "Runway ML",
+    "url": "https://app.runwayml.com",
+    "tags": "video-editing,creative,ml-tools"
+  },
+  {
+    "name": "Loom AI",
+    "url": "https://loom.com",
+    "tags": "video,screen-recording,productivity"
+  },
+  {
+    "name": "Riverside.fm",
+    "url": "https://riverside.fm",
+    "tags": "audio,video,podcast,recording"
+  },
+  {
+    "name": "Podcastle",
+    "url": "https://podcastle.ai",
+    "tags": "audio,podcast,editing"
+  },
+  {
+    "name": "Adobe Podcast",
+    "url": "https://podcast.adobe.com",
+    "tags": "audio,podcast,enhancement"
+  },
+  {
+    "name": "Krisp",
+    "url": "https://krisp.ai",
+    "tags": "audio,noise-cancellation,productivity"
+  },
+  {
+    "name": "Trint",
+    "url": "https://trint.com",
+    "tags": "transcription,editing,productivity"
+  },
+  {
+    "name": "Rev AI",
+    "url": "https://rev.ai",
+    "tags": "transcription,speech-to-text,api"
+  },
+  {
+    "name": "AssemblyAI",
+    "url": "https://assemblyai.com",
+    "tags": "transcription,speech-to-text,api,developer-tools"
+  },
+  {
+    "name": "Deepgram",
+    "url": "https://deepgram.com",
+    "tags": "transcription,speech-to-text,api,developer-tools"
+  },
+  {
+    "name": "Speechify",
+    "url": "https://speechify.com",
+    "tags": "text-to-speech,audio,accessibility"
+  },
+  {
+    "name": "Play.ht",
+    "url": "https://play.ht",
+    "tags": "text-to-speech,voice-generation,audio"
+  },
+  {
+    "name": "Resemble AI",
+    "url": "https://resemble.ai",
+    "tags": "voice-generation,voice-cloning,audio"
+  },
+  {
+    "name": "Descript Overdub",
+    "url": "https://descript.com/overdub",
+    "tags": "voice-cloning,audio-editing,text-to-speech"
+  },
+  {
+    "name": "Riffusion",
+    "url": "https://riffusion.com",
+    "tags": "music-generation,audio,creative"
+  },
+  {
+    "name": "Boomy",
+    "url": "https://boomy.com",
+    "tags": "music-generation,audio,creative"
+  },
+  {
+    "name": "AIVA",
+    "url": "https://aiva.ai",
+    "tags": "music-generation,audio,creative,composition"
+  },
+  {
+    "name": "Soundful",
+    "url": "https://soundful.com",
+    "tags": "music-generation,audio,creative"
+  },
+  {
+    "name": "Beatoven.ai",
+    "url": "https://beatoven.ai",
+    "tags": "music-generation,audio,creative"
+  },
+  {
+    "name": "Mubert",
+    "url": "https://mubert.com",
+    "tags": "music-generation,audio,creative"
+  },
+  {
+    "name": "Splash",
+    "url": "https://splashmusic.com",
+    "tags": "music-generation,audio,creative"
+  },
+  {
+    "name": "Caktus AI",
+    "url": "https://caktus.ai",
+    "tags": "education,writing,student"
+  },
+  {
+    "name": "Socratic",
+    "url": "https://socratic.org",
+    "tags": "education,homework-help,student"
+  },
+  {
+    "name": "Quizlet AI",
+    "url": "https://quizlet.com",
+    "tags": "education,study,flashcards"
+  },
+  {
+    "name": "Knowji",
+    "url": "https://knowji.com",
+    "tags": "education,vocabulary,learning"
+  },
+  {
+    "name": "Gradescope",
+    "url": "https://gradescope.com",
+    "tags": "education,grading,assessment"
+  },
+  {
+    "name": "Turnitin",
+    "url": "https://turnitin.com",
+    "tags": "education,plagiarism,writing"
+  },
+  {
+    "name": "Originality.ai",
+    "url": "https://originality.ai",
+    "tags": "detection,plagiarism,ai-content"
+  },
+  {
+    "name": "GPTZero",
+    "url": "https://gptzero.me",
+    "tags": "detection,ai-content,education"
+  },
+  {
+    "name": "ZeroGPT",
+    "url": "https://zerogpt.com",
+    "tags": "detection,ai-content,free"
+  },
+  {
+    "name": "Scispace",
+    "url": "https://scispace.com",
+    "tags": "research,academic,paper-reading"
+  },
+  {
+    "name": "Jenni AI",
+    "url": "https://jenni.ai",
+    "tags": "writing,academic,research"
+  },
+  {
+    "name": "Wordtune",
+    "url": "https://wordtune.com",
+    "tags": "writing,paraphrasing,editing"
+  },
+  {
+    "name": "ProWritingAid",
+    "url": "https://prowritingaid.com",
+    "tags": "writing,grammar,editing"
+  },
+  {
+    "name": "Hemingway Editor",
+    "url": "https://hemingwayapp.com",
+    "tags": "writing,editing,readability"
+  },
+  {
+    "name": "Rytr",
+    "url": "https://rytr.me",
+    "tags": "writing,content-creation,marketing"
+  },
+  {
+    "name": "Anyword",
+    "url": "https://anyword.com",
+    "tags": "writing,marketing,copywriting"
+  },
+  {
+    "name": "Hypotenuse AI",
+    "url": "https://hypotenuse.ai",
+    "tags": "writing,ecommerce,product-descriptions"
+  },
+  {
+    "name": "Copysmith",
+    "url": "https://copysmith.ai",
+    "tags": "writing,marketing,content-creation"
+  },
+  {
+    "name": "Frase",
+    "url": "https://frase.io",
+    "tags": "seo,writing,content-optimization"
+  },
+  {
+    "name": "Surfer SEO",
+    "url": "https://surferseo.com",
+    "tags": "seo,content-optimization,marketing"
+  },
+  {
+    "name": "MarketMuse",
+    "url": "https://marketmuse.com",
+    "tags": "seo,content-strategy,marketing"
+  },
+  {
+    "name": "Clearscope",
+    "url": "https://clearscope.io",
+    "tags": "seo,content-optimization,marketing"
+  },
+  {
+    "name": "Article Forge",
+    "url": "https://articleforge.com",
+    "tags": "writing,content-creation,automation"
+  },
+  {
+    "name": "Wordsmith by RWS",
+    "url": "https://automatedinsights.com/wordsmith",
+    "tags": "writing,automation,data-to-text"
+  },
+  {
+    "name": "Kafkai",
+    "url": "https://kafkai.com",
+    "tags": "writing,content-creation,seo"
+  },
+  {
+    "name": "ContentBot",
+    "url": "https://contentbot.ai",
+    "tags": "writing,content-creation,automation"
+  },
+  {
+    "name": "Writecream",
+    "url": "https://writecream.com",
+    "tags": "writing,marketing,content-creation"
+  },
+  {
+    "name": "Scalenut",
+    "url": "https://scalenut.com",
+    "tags": "seo,writing,content-marketing"
+  },
+  {
+    "name": "GrowthBar",
+    "url": "https://growthbarseo.com",
+    "tags": "seo,writing,content-creation"
+  },
+  {
+    "name": "NeuronWriter",
+    "url": "https://neuronwriter.com",
+    "tags": "seo,writing,content-optimization"
+  },
+  {
+    "name": "Outranking",
+    "url": "https://outranking.io",
+    "tags": "seo,writing,content-optimization"
+  },
+  {
+    "name": "Dashword",
+    "url": "https://dashword.com",
+    "tags": "seo,writing,content-optimization"
+  },
+  {
+    "name": "INK",
+    "url": "https://inkforall.com",
+    "tags": "seo,writing,content-protection"
+  },
+  {
+    "name": "ClosersCopy",
+    "url": "https://closerscopy.com",
+    "tags": "writing,copywriting,marketing"
+  },
+  {
+    "name": "Peppertype",
+    "url": "https://peppertype.ai",
+    "tags": "writing,content-creation,marketing"
+  },
+  {
+    "name": "Shortly AI",
+    "url": "https://shortlyai.com",
+    "tags": "writing,creative-writing,story"
+  },
+  {
+    "name": "Sudowrite",
+    "url": "https://sudowrite.com",
+    "tags": "writing,creative-writing,fiction"
+  },
+  {
+    "name": "NovelAI",
+    "url": "https://novelai.net",
+    "tags": "writing,creative-writing,fiction,storytelling"
+  },
+  {
+    "name": "AI Dungeon",
+    "url": "https://aidungeon.io",
+    "tags": "gaming,interactive-fiction,storytelling"
+  },
+  {
+    "name": "Inworld AI",
+    "url": "https://inworld.ai",
+    "tags": "gaming,npc,character-ai"
+  },
+  {
+    "name": "Convai",
+    "url": "https://convai.com",
+    "tags": "gaming,npc,conversation"
+  },
+  {
+    "name": "Scenario",
+    "url": "https://scenario.com",
+    "tags": "gaming,game-assets,image-generation"
+  },
+  {
+    "name": "Rosebud AI",
+    "url": "https://rosebud.ai",
+    "tags": "gaming,game-development,creative"
+  },
+  {
+    "name": "Promethean AI",
+    "url": "https://prometheanai.com",
+    "tags": "gaming,game-development,environment"
+  },
+  {
+    "name": "Layer",
+    "url": "https://layer.ai",
+    "tags": "gaming,game-assets,creative"
+  },
+  {
+    "name": "Ludo AI",
+    "url": "https://ludo.ai",
+    "tags": "gaming,game-development,research"
+  },
+  {
+    "name": "Latitude",
+    "url": "https://latitude.io",
+    "tags": "gaming,interactive-fiction,storytelling"
+  },
+  {
+    "name": "Charisma",
+    "url": "https://charisma.ai",
+    "tags": "gaming,interactive-storytelling,npc"
+  },
+  {
+    "name": "Hidden Door",
+    "url": "https://hiddendoor.co",
+    "tags": "gaming,storytelling,multiplayer"
+  },
+  {
+    "name": "Azra Games",
+    "url": "https://azragames.com",
+    "tags": "gaming,web3,blockchain"
+  },
+  {
+    "name": "Uizard",
+    "url": "https://uizard.io",
+    "tags": "design,ui,prototyping,no-code"
+  },
+  {
+    "name": "Galileo AI",
+    "url": "https://usegalileo.ai",
+    "tags": "design,ui,figma"
+  },
+  {
+    "name": "Diagram",
+    "url": "https://diagram.com",
+    "tags": "design,ui,figma"
+  },
+  {
+    "name": "Magician (Figma)",
+    "url": "https://magician.design",
+    "tags": "design,ui,figma,plugin"
+  },
+  {
+    "name": "Designs.ai Videomaker",
+    "url": "https://designs.ai/videomaker",
+    "tags": "video-generation,marketing,design"
+  },
+  {
+    "name": "Designs.ai Logomaker",
+    "url": "https://designs.ai/logomaker",
+    "tags": "design,logo,branding"
+  },
+  {
+    "name": "Designs.ai Speechmaker",
+    "url": "https://designs.ai/speechmaker",
+    "tags": "text-to-speech,audio,voice"
+  },
+  {
+    "name": "Namelix",
+    "url": "https://namelix.com",
+    "tags": "branding,naming,business"
+  },
+  {
+    "name": "Booth AI",
+    "url": "https://booth.ai",
+    "tags": "ecommerce,product-photography,image-generation"
+  },
+  {
+    "name": "Pebblely",
+    "url": "https://pebblely.com",
+    "tags": "ecommerce,product-photography,image-generation"
+  },
+  {
+    "name": "Pixelcut",
+    "url": "https://pixelcut.ai",
+    "tags": "ecommerce,product-photography,image-editing"
+  },
+  {
+    "name": "Mokker AI",
+    "url": "https://mokker.ai",
+    "tags": "ecommerce,product-photography,background-replacement"
+  },
+  {
+    "name": "Claid AI",
+    "url": "https://claid.ai",
+    "tags": "ecommerce,product-photography,image-enhancement"
+  },
+  {
+    "name": "Flair AI",
+    "url": "https://flair.ai",
+    "tags": "ecommerce,product-photography,design"
+  },
+  {
+    "name": "Photoroom",
+    "url": "https://photoroom.com",
+    "tags": "ecommerce,product-photography,background-removal"
+  },
+  {
+    "name": "Caspa AI",
+    "url": "https://caspa.ai",
+    "tags": "ecommerce,product-photography,image-generation"
+  },
+  {
+    "name": "Erase.bg",
+    "url": "https://erase.bg",
+    "tags": "image-editing,background-removal,design"
+  },
+  {
+    "name": "Slazzer",
+    "url": "https://slazzer.com",
+    "tags": "image-editing,background-removal,design"
+  },
+  {
+    "name": "Unscreen",
+    "url": "https://unscreen.com",
+    "tags": "video-editing,background-removal,green-screen"
+  },
+  {
+    "name": "Vidyo.ai",
+    "url": "https://vidyo.ai",
+    "tags": "video-editing,short-form,social-media"
+  },
+  {
+    "name": "OpusClip",
+    "url": "https://opusclip.pro",
+    "tags": "video-editing,short-form,social-media"
+  },
+  {
+    "name": "Munch",
+    "url": "https://getmunch.com",
+    "tags": "video-editing,short-form,social-media"
+  },
+  {
+    "name": "Vizard",
+    "url": "https://vizard.ai",
+    "tags": "video-editing,short-form,social-media"
+  },
+  {
+    "name": "Submagic",
+    "url": "https://submagic.co",
+    "tags": "video-editing,captions,social-media"
+  },
+  {
+    "name": "Captions",
+    "url": "https://captions.ai",
+    "tags": "video-editing,captions,dubbing"
+  },
+  {
+    "name": "AutoPod",
+    "url": "https://autopod.fm",
+    "tags": "video-editing,podcast,premiere-pro"
+  },
+  {
+    "name": "Gling",
+    "url": "https://gling.ai",
+    "tags": "video-editing,youtube,content-creation"
+  },
+  {
+    "name": "Kapwing",
+    "url": "https://kapwing.com",
+    "tags": "video-editing,meme,social-media"
+  },
+  {
+    "name": "Wisecut",
+    "url": "https://wisecut.video",
+    "tags": "video-editing,auto-editing,youtube"
+  },
+  {
+    "name": "GlossAI",
+    "url": "https://glossai.co",
+    "tags": "video-editing,repurposing,content-creation"
+  },
+  {
+    "name": "Raw Shorts",
+    "url": "https://rawshorts.com",
+    "tags": "video-generation,explainer,animation"
+  },
+  {
+    "name": "Animoto",
+    "url": "https://animoto.com",
+    "tags": "video-generation,slideshow,marketing"
+  },
+  {
+    "name": "Lumen5",
+    "url": "https://lumen5.com",
+    "tags": "video-generation,marketing,content-creation"
+  },
+  {
+    "name": "Wave.video",
+    "url": "https://wave.video",
+    "tags": "video-editing,marketing,social-media"
+  },
+  {
+    "name": "Rephrase.ai",
+    "url": "https://rephrase.ai",
+    "tags": "video-generation,avatar,marketing"
+  },
+  {
+    "name": "Elai",
+    "url": "https://elai.io",
+    "tags": "video-generation,avatar,training"
+  },
+  {
+    "name": "Hour One",
+    "url": "https://hourone.ai",
+    "tags": "video-generation,avatar,training"
+  },
+  {
+    "name": "Movio (Veed)",
+    "url": "https://movio.la",
+    "tags": "video-generation,avatar,marketing"
+  },
+  {
+    "name": "DeepBrain AI",
+    "url": "https://deepbrain.io",
+    "tags": "video-generation,avatar,training"
+  },
+  {
+    "name": "Synthesia AI Studio",
+    "url": "https://synthesia.io/features/ai-video-assistant",
+    "tags": "video-generation,avatar,enterprise"
+  },
+  {
+    "name": "Tavus",
+    "url": "https://tavus.io",
+    "tags": "video-generation,personalization,avatar"
+  },
+  {
+    "name": "BHuman",
+    "url": "https://bhuman.ai",
+    "tags": "video-generation,personalization,sales"
+  },
+  {
+    "name": "Windsor",
+    "url": "https://windsor.io",
+    "tags": "video-generation,personalization,ecommerce"
+  },
+  {
+    "name": "Descript Studio",
+    "url": "https://descript.com",
+    "tags": "video-editing,audio-editing,podcast,transcription"
+  },
+  {
+    "name": "Runway Gen-2",
+    "url": "https://app.runwayml.com/video-tools/teams/javierlatasa/gen-2",
+    "tags": "video-generation,ai-video,creative"
+  },
+  {
+    "name": "Kaiber",
+    "url": "https://kaiber.ai",
+    "tags": "video-generation,music-video,creative"
+  },
+  {
+    "name": "Genmo",
+    "url": "https://genmo.ai",
+    "tags": "video-generation,creative,image-to-video"
+  },
+  {
+    "name": "Neural Frames",
+    "url": "https://neuralframes.com",
+    "tags": "video-generation,music-video,animation"
+  },
+  {
+    "name": "Moonvalley",
+    "url": "https://moonvalley.ai",
+    "tags": "video-generation,creative,discord"
+  },
+  {
+    "name": "Morph Studio",
+    "url": "https://morph.studio",
+    "tags": "video-generation,creative,text-to-video"
+  },
+  {
+    "name": "LTX Studio",
+    "url": "https://ltx.studio",
+    "tags": "video-generation,storytelling,creative"
+  }
+]
