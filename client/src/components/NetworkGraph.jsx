@@ -2,11 +2,13 @@ import React, { useMemo } from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
 import * as d3 from 'd3-force';
 
-const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
+const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment, similarities = [], snapshotMode = false }) => {
     const [focusedTag, setFocusedTag] = React.useState(null);
     const [hoveredNode, setHoveredNode] = React.useState(null);
+    const [showSemanticLinks, setShowSemanticLinks] = React.useState(false);
 
-    const data = useMemo(() => {
+    // ── Build base graph data from bookmarks ────────────────────────────────
+    const baseData = useMemo(() => {
         const nodes = [];
         const links = [];
         const tagSet = new Set();
@@ -34,7 +36,8 @@ const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
                 links.push({
                     source: `bookmark-${b.id}`,
                     target: `tag-${normalizedTag}`,
-                    value: 1
+                    value: 1,
+                    type: 'tag'
                 });
             });
         });
@@ -53,17 +56,33 @@ const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
         return { nodes, links };
     }, [bookmarks]);
 
+    // ── Build semantic links from similarities prop ──────────────────────────
+    const semanticLinks = useMemo(() => {
+        if (!showSemanticLinks || !similarities.length) return [];
+        // similarities shape from getSimilarities(): { id, title, url, image, score }
+        // These are results for a specific bookmark_id_a → bookmark_id_b
+        // For the graph we need pairs. Since similarities prop may be partial, we build what we can.
+        return similarities
+            .map(s => ({
+                source: `bookmark-${s.bookmark_id_a || s.a}`,
+                target: `bookmark-${s.id || s.bookmark_id_b || s.b}`,
+                value: s.score || 0,
+                type: 'semantic'
+            }))
+            .filter(l => l.source !== l.target && l.source !== 'bookmark-undefined' && l.target !== 'bookmark-undefined');
+    }, [similarities, showSemanticLinks]);
+
+    // ── Merge base data with semantic links ─────────────────────────────────
+    const data = useMemo(() => ({
+        nodes: baseData.nodes,
+        links: [...baseData.links, ...semanticLinks]
+    }), [baseData, semanticLinks]);
+
     const [dragState, setDragState] = React.useState({ active: false, node: null, target: null });
-
-    // ... (data useMemo remains same, do not change lines 7-52)
-
-    // NOTE: Copying previous useMemo block logic, just re-declaring it to be safe or assuming context. 
-    // BUT since I can't see the full context in this snippet, I will retain the logic around it.
-    // The safest way is to replace the Component Body or specific methods.
 
     const handleNodeDrag = (node) => {
         // Find closest Tag node
-        const threshold = 50; // Increased threshold for easier connecting
+        const threshold = 50;
         let closestTag = null;
         let minDistance = Infinity;
 
@@ -103,38 +122,54 @@ const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
 
     React.useEffect(() => {
         if (fgRef.current) {
-            // Increase repulsion significantly to push nodes apart
             fgRef.current.d3Force('charge').strength(-550);
-            // Add collision to prevent overlap, with extra padding
             fgRef.current.d3Force('collide', d3.forceCollide(node => node.val + 12));
-            // Adjust link distance to be longer, allowing "satellites" to orbit further out
             fgRef.current.d3Force('link').distance(110);
-
             fgRef.current.d3ReheatSimulation();
         }
     }, [data]);
 
     return (
         <div className="border border-zinc-800/50 rounded-xl overflow-hidden bg-zinc-950/50 backdrop-blur-sm h-[600px] w-full relative">
-            <div className="absolute top-4 left-4 z-10 bg-zinc-900/80 p-4 rounded-lg backdrop-blur-md border border-zinc-800/50 shadow-xl pointer-events-none select-none">
-                <div className="flex items-center gap-3 mb-2">
-                    <div className="w-2 h-2 rounded-full bg-zinc-100 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
-                    <span className="text-xs text-zinc-400 font-medium tracking-wide">CLUSTERS</span>
-                </div>
-                <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-zinc-500"></div>
-                    <span className="text-xs text-zinc-400 font-medium tracking-wide">BOOKMARKS</span>
-                </div>
-                {focusedTag && (
-                    <div className="mt-2 text-xs text-blue-400 font-bold border-t border-zinc-700 pt-2 animate-pulse">
-                        FOCUSED: {focusedTag}
+            {/* Legend / Controls Overlay */}
+            <div className="absolute top-4 left-4 z-10 bg-zinc-900/80 p-4 rounded-lg backdrop-blur-md border border-zinc-800/50 shadow-xl select-none">
+                <div className="pointer-events-none">
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="w-2 h-2 rounded-full bg-zinc-100 shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
+                        <span className="text-xs text-zinc-400 font-medium tracking-wide">CLUSTERS</span>
                     </div>
-                )}
-                {dragState.target && (
-                    <div className="mt-4 pt-2 border-t border-zinc-700 text-green-400 text-xs font-bold animate-pulse">
-                        RELEASE TO CONNECT: {dragState.target.name}
+                    <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-zinc-500"></div>
+                        <span className="text-xs text-zinc-400 font-medium tracking-wide">BOOKMARKS</span>
                     </div>
-                )}
+                    {snapshotMode && (
+                        <div className="mt-2 text-xs text-amber-400 font-bold border-t border-zinc-700 pt-2">
+                            ⏳ SNAPSHOT MODE
+                        </div>
+                    )}
+                    {focusedTag && (
+                        <div className="mt-2 text-xs text-blue-400 font-bold border-t border-zinc-700 pt-2 animate-pulse">
+                            FOCUSED: {focusedTag}
+                        </div>
+                    )}
+                    {dragState.target && (
+                        <div className="mt-4 pt-2 border-t border-zinc-700 text-green-400 text-xs font-bold animate-pulse">
+                            RELEASE TO CONNECT: {dragState.target.name}
+                        </div>
+                    )}
+                </div>
+
+                {/* Semantic Links Toggle — needs pointer events */}
+                <button
+                    onClick={() => setShowSemanticLinks(v => !v)}
+                    className={`text-xs px-2 py-1 rounded border transition-colors mt-2 w-full text-left ${
+                        showSemanticLinks
+                            ? 'border-yellow-500/50 text-yellow-400 bg-yellow-500/10'
+                            : 'border-zinc-700 text-zinc-500 hover:text-zinc-300'
+                    }`}
+                >
+                    {showSemanticLinks ? '◉' : '○'} Semantic Links
+                </button>
             </div>
 
             {/* Hover Card */}
@@ -180,16 +215,18 @@ const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
                 nodeLabel="name"
                 nodeColor="color"
                 nodeVal="val"
-                linkWidth={0.5}
+                linkWidth={(link) => link.type === 'semantic' ? 0.3 : 0.5}
                 linkCurvature={0.25}
                 linkDirectionalParticles={1}
                 linkDirectionalParticleSpeed={0.005}
+                linkLineDash={(link) => link.type === 'semantic' ? [2, 4] : null}
                 onNodeHover={(node) => {
-                    // Update hovered node state
                     setHoveredNode(node);
-                    // Also clear drag connection if we are hovering a node (optional logic)
                 }}
                 linkColor={(link) => {
+                    if (link.type === 'semantic') {
+                        return `rgba(251,191,36,${(link.value || 0.3) * 0.6})`; // amber, opacity by score
+                    }
                     if (focusedTag) {
                         return (link.target.name === focusedTag || link.source.name === focusedTag) ? "#3f3f46" : "rgba(0,0,0,0)";
                     }
@@ -207,8 +244,7 @@ const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
                     }
 
                     const label = node.name;
-                    // Increase font sizes significantly for visibility
-                    const fontSize = node.type === 'tag' ? 14 / globalScale : 14 / globalScale; // URLs now same base size as tags
+                    const fontSize = node.type === 'tag' ? 14 / globalScale : 14 / globalScale;
                     ctx.font = `${fontSize}px Inter, sans-serif`;
 
                     ctx.globalAlpha = isDimmed ? 0.1 : 1;
@@ -217,14 +253,20 @@ const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
                     ctx.arc(node.x, node.y, node.val, 0, 2 * Math.PI, false);
 
                     if (node.type === 'tag') {
-                        ctx.fillStyle = '#f4f4f5';
+                        ctx.fillStyle = snapshotMode ? '#f4f4f5' : '#f4f4f5';
                         if (!isDimmed) {
                             ctx.shadowBlur = 15;
-                            ctx.shadowColor = 'rgba(255,255,255,0.3)';
+                            ctx.shadowColor = snapshotMode
+                                ? 'rgba(217,119,6,0.4)'
+                                : 'rgba(255,255,255,0.3)';
                         }
                     } else {
-                        // Highlight if hovered
-                        if (hoveredNode && hoveredNode.id === node.id) {
+                        // Snapshot mode: amber tint for bookmark nodes
+                        if (snapshotMode) {
+                            ctx.fillStyle = '#d97706'; // amber
+                            ctx.shadowBlur = 8;
+                            ctx.shadowColor = 'rgba(217,119,6,0.5)';
+                        } else if (hoveredNode && hoveredNode.id === node.id) {
                             ctx.fillStyle = '#60A5FA'; // Blue highlight
                             ctx.shadowBlur = 10;
                             ctx.shadowColor = '#60A5FA';
@@ -241,10 +283,9 @@ const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
                     ctx.textBaseline = 'middle';
 
                     if (node.type === 'tag') {
-                        ctx.fillStyle = '#ffffff';
+                        ctx.fillStyle = snapshotMode ? '#fef3c7' : '#ffffff';
                         if (globalScale > 0.4 || !isDimmed) ctx.fillText(label, node.x, node.y + node.val + 6);
                     } else {
-                        // Show text sooner (lower zoom threshold)
                         if (globalScale > 1.2 && !isDimmed) {
                             ctx.fillStyle = '#a1a1aa';
                             ctx.fillText(label, node.x, node.y + node.val + 6);
@@ -253,12 +294,11 @@ const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
                     ctx.globalAlpha = 1;
                     // --- RENDER LOGIC END ---
 
-                    // *** NEW: Draw Visual Connection Line ***
+                    // Draw Visual Connection Line during drag
                     if (dragState.active && dragState.node === node && dragState.target) {
                         ctx.beginPath();
                         ctx.moveTo(node.x, node.y);
                         ctx.lineTo(dragState.target.x, dragState.target.y);
-                        // Green Line
                         ctx.strokeStyle = '#4ade80';
                         ctx.lineWidth = 2 / globalScale;
                         ctx.setLineDash([5 / globalScale, 5 / globalScale]);
@@ -270,6 +310,7 @@ const NetworkGraph = ({ bookmarks, onNodeClick, onTagAssignment }) => {
                     if (node.type === 'tag') {
                         setFocusedTag(prev => prev === node.name ? null : node.name);
                     } else if (node.type === 'bookmark') {
+                        if (onNodeClick) onNodeClick(node.originalId);
                         window.open(node.url, '_blank');
                     }
                 }}

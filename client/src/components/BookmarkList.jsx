@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Tag, ExternalLink, Trash2, Edit2 } from 'lucide-react';
 
-const BookmarkList = ({ bookmarks, onDelete, onEdit, stacks, onAddToStack, selectedIds, onToggleSelection }) => {
+const BookmarkList = ({ bookmarks, onDelete, onEdit, stacks, onAddToStack, selectedIds, onToggleSelection, onBookmarkClick }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [showStackMenu, setShowStackMenu] = useState(null); // { bookmarkId: X, x: Y, y: Z }
 
@@ -39,7 +39,10 @@ const BookmarkList = ({ bookmarks, onDelete, onEdit, stacks, onAddToStack, selec
                             onDragEnd={(e) => {
                                 e.currentTarget.style.opacity = '1';
                             }}
-                            className={`break-inside-avoid group relative bg-zinc-900/30 p-6 rounded-xl border transition-all duration-300 cursor-grab active:cursor-grabbing
+                            onClick={(e) => {
+                                if (onBookmarkClick) onBookmarkClick(bookmark);
+                            }}
+                            className={`break-inside-avoid group relative bg-zinc-900/30 p-6 rounded-xl border transition-all duration-300 cursor-pointer
                                 ${isSelected
                                     ? 'border-purple-500/50 bg-purple-500/10 shadow-[0_0_20px_rgba(168,85,247,0.1)]'
                                     : 'border-zinc-800/50 hover:border-zinc-700 hover:bg-zinc-900/60 hover:shadow-2xl'
@@ -71,11 +74,13 @@ const BookmarkList = ({ bookmarks, onDelete, onEdit, stacks, onAddToStack, selec
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="p-2 bg-zinc-800 text-zinc-400 hover:text-white rounded-full hover:bg-zinc-700 transition-colors"
+                                    onClick={(e) => e.stopPropagation()}
                                 >
                                     <ExternalLink size={14} />
                                 </a>
                                 <button
                                     onClick={(e) => {
+                                        e.stopPropagation();
                                         const rect = e.currentTarget.getBoundingClientRect();
                                         setShowStackMenu({
                                             bookmarkId: bookmark.id,
@@ -89,13 +94,13 @@ const BookmarkList = ({ bookmarks, onDelete, onEdit, stacks, onAddToStack, selec
                                     <Tag size={14} />
                                 </button>
                                 <button
-                                    onClick={() => onEdit(bookmark)}
+                                    onClick={(e) => { e.stopPropagation(); onEdit(bookmark); }}
                                     className="p-2 bg-zinc-800 text-zinc-400 hover:text-blue-400 rounded-full hover:bg-zinc-700 transition-colors"
                                 >
                                     <Edit2 size={14} />
                                 </button>
                                 <button
-                                    onClick={() => onDelete(bookmark.id)}
+                                    onClick={(e) => { e.stopPropagation(); onDelete(bookmark.id); }}
                                     className="p-2 bg-zinc-800 text-zinc-400 hover:text-red-400 rounded-full hover:bg-zinc-700 transition-colors"
                                 >
                                     <Trash2 size={14} />

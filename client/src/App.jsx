@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LayoutGrid, Network, Plus, X, Database } from 'lucide-react';
+import { LayoutGrid, Network, Plus, X, Database, Trash2 } from 'lucide-react';
 import BookmarkList from './components/BookmarkList';
 import NetworkGraph from './components/NetworkGraph';
 import StacksSidebar from './components/StacksSidebar';
+import SearchOverlay from './components/SearchOverlay';
+import BookmarkDetailPanel from './components/BookmarkDetailPanel';
+import TimeMachineControls from './components/TimeMachineControls';
+import ClusterManager from './components/ClusterManager';
 
 import { Toaster, toast } from 'sonner';
 import SettingsModal from './components/SettingsModal';
@@ -27,14 +31,30 @@ function App() {
     const [showSettings, setShowSettings] = useState(false);
     const [showDataModal, setShowDataModal] = useState(false);
 
+    // ── New feature state ──────────────────────────────────────────────────────
+    const [showSearch, setShowSearch] = useState(false);
+    const [selectedBookmark, setSelectedBookmark] = useState(null); // for detail panel
+    const [timeMachine, setTimeMachine] = useState({ active: false, date: null, snapshot: null });
+    const [similarities, setSimilarities] = useState([]); // for graph semantic links
+
     useEffect(() => {
         fetchBookmarks();
         fetchStacks();
 
         const handleKeyDown = (e) => {
+            // Ctrl+Shift+K → open Add Modal
+            if (e.key === 'k' && (e.metaKey || e.ctrlKey) && e.shiftKey) {
+                e.preventDefault();
+                setEditingBookmark(null);
+                setNewUrl('');
+                setNewTags('');
+                setShowAddModal(true);
+                return;
+            }
+            // Ctrl+K → open Search Overlay
             if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault();
-                setShowAddModal(true);
+                setShowSearch(true);
             }
         };
 
@@ -60,6 +80,31 @@ function App() {
         }
     };
 
+    // ── Fetch similarities status (silent, non-critical) ───────────────────────
+    const fetchSimilarities = async () => {
+        try {
+            const { data } = await axios.get('http://localhost:3000/api/embeddings/status');
+            if (!data.lastComputed && bookmarks.length > 0) {
+                // Silently trigger background compute
+                axios.post('http://localhost:3000/api/embeddings/compute').catch(() => {});
+            }
+        } catch (err) { /* non-critical */ }
+    };
+
+    // ── Time Machine snapshot handler ──────────────────────────────────────────
+    const handleSnapshotChange = async (date) => {
+        if (!date) {
+            setTimeMachine({ active: false, date: null, snapshot: null });
+            return;
+        }
+        try {
+            const { data } = await axios.get(`http://localhost:3000/api/timeline/snapshot?date=${date}`);
+            setTimeMachine({ active: true, date, snapshot: data });
+        } catch (err) {
+            toast.error('Failed to load snapshot');
+        }
+    };
+
     const handleEdit = (bookmark) => {
         setEditingBookmark(bookmark);
         setNewUrl(bookmark.url);
@@ -72,6 +117,10 @@ function App() {
         setEditingBookmark(null);
         setNewUrl('');
         setNewTags('');
+    };
+
+    const handleSelectStack = (stackId) => {
+        setSelectedStack(stackId);
     };
 
     const addOrUpdateBookmark = async (e) => {
@@ -110,14 +159,13 @@ function App() {
         try {
             await axios.delete(`http://localhost:3000/api/bookmarks/${id}`);
             fetchBookmarks();
-            // Show toast with Undo action
+            const idsToRestore = [id];
             toast.success("Bookmark deleted", {
                 action: {
                     label: 'Undo',
                     onClick: async () => {
                         try {
                             await axios.post(`http://localhost:3000/api/bookmarks/${id}/restore`);
-                            dismiss();
                             fetchBookmarks();
                             toast.success("Restored");
                         } catch (err) {
@@ -216,36 +264,14 @@ function App() {
 
     const handleBulkDelete = async () => {
         if (!confirm(`Delete ${selectedIds.size} bookmarks?`)) return;
+        const idsToDelete = Array.from(selectedIds);
 
         try {
             await axios.post('http://localhost:3000/api/bookmarks/bulk/delete', {
-                ids: Array.from(selectedIds)
+                ids: idsToDelete
             });
             clearSelection();
             fetchBookmarks();
-            toast.success("Items deleted", {
-                action: {
-                    label: 'Undo',
-                    onClick: async () => {
-                        try {
-                            await axios.post('http://localhost:3000/api/bookmarks/bulk/restore', {
-                                ids: Array.from(selectedIds) // This might be empty if we cleared it? No, we need closure capture or passing it. 
-                                // Actually, handleBulkDelete closes over selectedIds via Array.from(selectedIds) in the *first* call, 
-                                // but for the Undo/restore we need the IDs that WERE deleted.
-                                // Let's simplify and just rely on the IDs being captured in this scope.
-                                // Wait, `selectedIds` is a const in this render. `Array.from(selectedIds)` creates a new array.
-                                // So we need to store `idsToRestore` locally.
-                            });
-                            // However, react state closure might be stale if we don't capture it right. 
-                            // But here we are inside the function scope, so `ids` (the array) will be captured.
-                        } catch (err) { toast.error("Restore failed"); }
-                    }
-                }
-            });
-
-            // We need to capture the IDs for the undo action properly
-            const idsToDelete = Array.from(selectedIds);
-            // Updating the toast action to use idsToDelete
             toast.success(`${idsToDelete.length} items deleted`, {
                 action: {
                     label: 'Undo',
@@ -258,7 +284,6 @@ function App() {
                     }
                 }
             });
-
         } catch (err) {
             toast.error("Failed to delete items");
         }
@@ -281,9 +306,27 @@ function App() {
         <div className="min-h-screen text-zinc-200 selection:bg-zinc-700/50 pb-20"> {/* pb-20 for floating bar */}
             <Toaster position="bottom-right" theme="dark" />
 
+            {/* Search Overlay */}
+            <SearchOverlay
+                isOpen={showSearch}
+                onClose={() => setShowSearch(false)}
+                bookmarks={bookmarks}
+                stacks={stacks}
+            />
+
+            {/* Bookmark Detail Panel */}
+            {selectedBookmark && (
+                <BookmarkDetailPanel
+                    bookmark={selectedBookmark}
+                    onClose={() => setSelectedBookmark(null)}
+                    stacks={stacks}
+                    onEdit={(bm) => { setSelectedBookmark(null); handleEdit(bm); }}
+                    onDelete={(id) => { setSelectedBookmark(null); deleteBookmark(id); }}
+                />
+            )}
+
             {/* Header - Minimalist */}
             <header className="sticky top-0 z-50 px-8 py-5 flex justify-between items-center bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-900/50">
-                {/* ... existing header ... */}
                 <div className="flex items-center gap-3">
                     <div className="bg-zinc-100 rounded-full p-1.5 shadow-[0_0_15px_rgba(255,255,255,0.3)]">
                         <div className="w-3 h-3 bg-black rounded-full" />
@@ -294,7 +337,6 @@ function App() {
                 </div>
 
                 <div className="flex items-center gap-6">
-                    {/* ... existing header buttons ... */}
                     <div className="flex bg-zinc-900/50 p-1 rounded-lg border border-zinc-800/50">
                         <button
                             onClick={() => setView('list')}
@@ -320,6 +362,14 @@ function App() {
                         >
                             Stats
                         </button>
+                        <button
+                            onClick={() => setView('clusters')}
+                            className={`px-3 py-1.5 rounded-md transition-all text-sm font-medium ${view === 'clusters'
+                                ? 'bg-zinc-800 text-zinc-100 shadow-sm'
+                                : 'text-zinc-500 hover:text-zinc-300'}`}
+                        >
+                            Clusters
+                        </button>
                     </div>
 
                     <button
@@ -333,6 +383,17 @@ function App() {
                     >
                         <Plus size={16} className="inline mr-1" strokeWidth={3} />
                         Save
+                    </button>
+
+                    <button
+                        onClick={() => setShowSearch(true)}
+                        className="px-3 py-2 rounded-full transition-all bg-zinc-900/50 text-zinc-400 hover:text-zinc-100 border border-zinc-800/50 hover:border-zinc-700 text-sm flex items-center gap-2"
+                        title="Search (Ctrl+K)"
+                    >
+                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                        </svg>
+                        <kbd className="text-[10px] font-mono text-zinc-600">⌃K</kbd>
                     </button>
 
                     <button
@@ -389,10 +450,10 @@ function App() {
                                         onAddToStack={addBookmarkToStack}
                                         selectedIds={selectedIds}
                                         onToggleSelection={toggleSelection}
+                                        onBookmarkClick={(bookmark) => setSelectedBookmark(bookmark)}
                                     />
                                 );
                             } else if (view === 'graph') {
-                                // ... existing graph code ...
                                 return (
                                     <>
                                         {selectedStack && (
@@ -410,15 +471,37 @@ function App() {
                                                 </button>
                                             </div>
                                         )}
+                                        <TimeMachineControls
+                                            onSnapshotChange={handleSnapshotChange}
+                                            onExitTimeMachine={() => setTimeMachine({ active: false, date: null, snapshot: null })}
+                                            isActive={timeMachine.active}
+                                        />
+                                        {!timeMachine.active && (
+                                            <div className="flex justify-end mb-2">
+                                                <button
+                                                    onClick={() => setTimeMachine(prev => ({ ...prev, active: true }))}
+                                                    className="text-xs px-3 py-1.5 rounded-full border border-zinc-700 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors"
+                                                    title="Open Time Machine"
+                                                >
+                                                    ⏳ Time Machine
+                                                </button>
+                                            </div>
+                                        )}
                                         <NetworkGraph
-                                            bookmarks={displayBookmarks}
+                                            bookmarks={timeMachine.active
+                                                ? (timeMachine.snapshot?.rawBookmarks || displayBookmarks)
+                                                : displayBookmarks}
                                             onNodeClick={(id) => console.log(id)}
                                             onTagAssignment={handleTagAssignment}
+                                            similarities={similarities}
+                                            snapshotMode={timeMachine.active}
                                         />
                                     </>
                                 );
                             } else if (view === 'stats') {
                                 return <StatsDashboard bookmarks={bookmarks} stacks={stacks} />;
+                            } else if (view === 'clusters') {
+                                return <ClusterManager bookmarks={bookmarks} />;
                             }
                         })()}
                     </main>
@@ -451,13 +534,6 @@ function App() {
 
                     <button
                         onClick={() => {
-                            // Quick hack: use the Stack Modal to "create" a stack, but we want to "add to existing".
-                            // For now, let's just toggle the sidebar so they can drag? No, bulk drag is hard.
-                            // Let's rely on the assumption user has stacks.
-                            // We will implement a simple prompt or just rely on the user knowing to use the sidebar for now?
-                            // Actually, we can make the "Add to Stack" button show a small popover of stacks right here.
-                            // But for simplicity in this step, let's just show a toast saying "Drag items to sidebar" if we supported that, but we don't yet for bulk.
-                            // Let's implement a simple stack picker modal or prompt.
                             const stackName = prompt("Enter stack name to add to (case sensitive for now):");
                             if (stackName) {
                                 const stack = stacks.find(s => s.name === stackName);
@@ -523,13 +599,13 @@ function App() {
                                 placeholder="Tags (comma separated)..."
                                 value={newTags}
                                 onChange={(e) => setNewTags(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && handleAddBookmark()}
+                                onKeyDown={(e) => e.key === 'Enter' && addOrUpdateBookmark(e)}
                                 className="w-full bg-zinc-950/50 border-b-2 border-zinc-800 focus:border-zinc-100 text-zinc-100 p-4 outline-none transition-all placeholder:text-zinc-700 font-light"
                             />
 
                             <div className="flex justify-end pt-4">
                                 <button
-                                    onClick={handleAddBookmark}
+                                    onClick={addOrUpdateBookmark}
                                     disabled={loading}
                                     className="px-8 py-3 bg-zinc-100 hover:bg-white text-zinc-900 rounded-xl font-bold tracking-wide transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
@@ -569,52 +645,6 @@ function App() {
                             CREATE STACK
                         </button>
                     </div>
-                </div>
-            )}
-
-            {/* Bulk Action Floating Bar */}
-            {selectedIds.size > 0 && (
-                <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-zinc-900 border border-zinc-700 shadow-2xl rounded-full px-6 py-3 flex items-center gap-4 z-50 animate-in fade-in slide-in-from-bottom-4 transition-all">
-                    <div className="flex items-center gap-2 border-r border-zinc-700 pr-4">
-                        <span className="bg-zinc-100 text-zinc-900 text-xs font-bold px-2 py-0.5 rounded-full">
-                            {selectedIds.size}
-                        </span>
-                        <span className="text-sm text-zinc-300">Selected</span>
-                    </div>
-
-                    <button
-                        onClick={() => {
-                            const stackName = prompt("Enter stack name to add to (case sensitive for now):");
-                            if (stackName) {
-                                const stack = stacks.find(s => s.name === stackName);
-                                if (stack) handleBulkAddToStack(stack.id);
-                                else toast.error("Stack not found");
-                            }
-                        }}
-                        className="text-zinc-400 hover:text-zinc-100 transition-colors flex items-center gap-1"
-                        title="Add to Stack"
-                    >
-                        <span className="text-sm font-medium">Add to Stack</span>
-                    </button>
-
-                    <div className="h-4 w-[1px] bg-zinc-800"></div>
-
-                    <button
-                        onClick={handleBulkDelete}
-                        className="text-red-400 hover:text-red-300 transition-colors flex items-center gap-1"
-                    >
-                        <Trash2 size={16} />
-                        <span className="text-sm font-medium">Delete</span>
-                    </button>
-
-                    <div className="h-4 w-[1px] bg-zinc-800"></div>
-
-                    <button
-                        onClick={clearSelection}
-                        className="text-zinc-500 hover:text-zinc-300 transition-colors"
-                    >
-                        <X size={16} />
-                    </button>
                 </div>
             )}
 
